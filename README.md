@@ -7,4 +7,10 @@
 视频演示:  
 ![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.gif)  
 图片演示:  
-![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo_two.png)
+![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo_mini.png)
+使用介绍：  
+StromotionCrossvideo(workspace,path_2dpose,path_video,extract=3)  
+workspace：视频文件所在目录  
+path_2dpose：op25b的npz文件路径  
+path_video：视频路径  
+extract：抽帧参数  
