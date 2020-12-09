@@ -4,5 +4,7 @@
 2 Yolact实例分割 完成对靠前人体的mask输出   
 3 根据叠加的mask 累积演示到最后的图片中  
 4 输出stromotion 图片及形成的视频
-视频演示：
-图片演示：
+视频演示:  
+![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.gif)  
+图片演示:  
+![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.png)  
