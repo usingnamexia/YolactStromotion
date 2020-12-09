@@ -7,4 +7,4 @@
 视频演示:  
 ![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.gif)  
 图片演示:  
-![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.png)  
+![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo.png)
