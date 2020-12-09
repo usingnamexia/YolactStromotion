@@ -9,10 +9,11 @@
 图片演示:  
 ![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo_mini.png)  
 ## 使用介绍：  
-StromotionCrossvideo(workspace,path_2dpose,path_video,extract=3)  
+S = StromotionCrossvideo(workspace,path_2dpose,path_video,extract=3)  
 workspace：视频文件所在目录  
 path_2dpose：op25b的npz文件路径  
 path_video：视频路径  
 extract：抽帧参数  
-return：{帧号：2dpose}(方便计算其他数据)  
+return：S.output  
+格式：{帧号：2dpose}(方便计算其他数据)  
 在视频目录生成video 和 stromotionImage  
