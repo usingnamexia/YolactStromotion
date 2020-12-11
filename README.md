@@ -15,7 +15,7 @@ path_2dpose：op25b的npz文件路径
 path_video：视频路径  
 extract：抽帧参数  
 return：S.output  
-格式：{帧号：2dpose}(方便计算其他数据)  
+格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）}}
 在视频目录生成video 和 stromotionImage  
 模型文件下载：  
 链接：https://pan.baidu.com/s/1FMDH_WvzcBK8anz6mwnW4A   
