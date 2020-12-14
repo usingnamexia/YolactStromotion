@@ -18,6 +18,6 @@ return：S.output
 格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）}}  
 在视频目录生成video 和 stromotionImage  
 模型文件下载：  
-链接：https://pan.baidu.com/s/1FMDH_WvzcBK8anz6mwnW4A   
-提取码：ftf0   
+链接：https://pan.baidu.com/s/189Ei1xxgxyjdft_f7gQ40g 
+提取码：ocfv 
 放在yolact_src\weights\下即可  
