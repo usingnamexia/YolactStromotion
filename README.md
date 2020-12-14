@@ -9,11 +9,13 @@
 图片演示:  
 ![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo_mini.png)  
 ## 使用介绍：  
-S = StromotionCrossvideo(workspace,path_2dpose,path_video,extract=3)  
+S = StromotionCrossvideo(workspace,path_2dpose,list_point,path_video,extract=4,show_foot_track_line=True)
 workspace：视频文件所在目录  
 path_2dpose：op25b的npz文件路径  
+list_point：起跳落地点  
 path_video：视频路径  
 extract：抽帧参数  
+show_foot_track_line:是否画出脚的轨迹  
 return：S.output  
 格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）}}  
 在视频目录生成video 和 stromotionImage  
