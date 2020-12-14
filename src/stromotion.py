@@ -10,7 +10,8 @@ path = 'yolact_src/weights/yolact_base_54_800000.pth'
 net = mian_init(path)
 #移动视角Stromotion
 class StromotionCrossvideo():
-    def __init__(self,workspace,path_2dpose,path_video,extract=10,show_foot_track_line=True):
+    def __init__(self,workspace,path_2dpose,list_point,path_video,extract=10,show_foot_track_line=True):
+        self.list_point = list_point
         self.extract = extract
         self.show_foot_track_line = show_foot_track_line
         self.workspace = workspace
@@ -62,16 +63,7 @@ class StromotionCrossvideo():
         for i in range(count):
             ret,src_im = cap.read()
             if ret and i in frames:
-                if i < bsp_track.shape[0]:
-                    center = bsp_track[i]
-                    list_zero.append((int(center[0]),int(center[1])))
-                    save_track=(int(center[0]),int(center[1]))
-                    if self.show_foot_track_line :
-                        if len(list_zero)>1:
-                            for num in range(len(list_zero)-1):
-                                cv2.line(src_im,list_zero[num],list_zero[num+1],(0,0,255),3)
-                self.output['track'][frames.index(i)] = save_track
-                if i%self.extract ==0:
+                if i%self.extract ==0 or i in self.list_point:
                    #print(dst_im.shape,src_im.shape)
                     #self.map_srcimage_pan(src_im,dst_im,i)
                     #H = self.stitcher.dict_H[i]
@@ -81,6 +73,8 @@ class StromotionCrossvideo():
 
                     #src_im_trans = cv2.warpPerspective(dst_im,H,(dst_im.shape[1],dst_im.shape[0]))
                     bbox_im = src_im[int(bbox_out[1]):int(bbox_out[3]),int(bbox_out[0]):int(bbox_out[2])]
+                    if bbox_im.shape[0]<=0:
+                        continue
                     cv2.imshow('bbox_im',bbox_im)
                     cv2.waitKey(1)
                     
@@ -123,6 +117,15 @@ class StromotionCrossvideo():
                     cv2.imshow('im',cv2.resize(im,None,fx=0.5,fy=0.5))
                     self.out.write(im)
                     cv2.waitKey(1)
+                if i < bsp_track.shape[0]:
+                    center = bsp_track[i]
+                    list_zero.append((int(center[0]),int(center[1])))
+                    save_track=(int(center[0]),int(center[1]))
+                    if self.show_foot_track_line :
+                        if len(list_zero)>1:
+                            for num in range(len(list_zero)-1):
+                                cv2.line(src_im,list_zero[num],list_zero[num+1],(0,0,255),3)
+                self.output['track'][frames.index(i)] = save_track
         cv2.imwrite((self.workspace+'StromtionCrossVideo.png'),im)
         self.out.release()
         cv2.waitKey(1000)
