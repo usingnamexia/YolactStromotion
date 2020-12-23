@@ -1,6 +1,7 @@
 import cv2
 import copy
 import numpy as np
+from jc_tools.jc import jfd
 from yolact_src.eval import mian_init,evalimage,evalimagexia
 from hp_sort.tools_bsp import BspFit,bsp_for_kp2d
 from hp_sort.tools_op import load_npz,KpsToBboxes,op25b_sort_linspace
@@ -53,7 +54,10 @@ class StromotionCrossvideo():
         count = int(cap.get(7))
         start_frame,end_frame= 0,count
         bboxs,frames,kp2ds = self.get_bbox(start_frame,end_frame)  
-        list_track,list_frames = self.get_track()
+        if self.list_point==[]:
+            list_track,list_frames = self.get_track()
+            foot_track,root_track = jfd(list_track,list_frames,self.path_2dpose)
+            self.list_point = list(foot_track)
         save_track=(int(list_track[0][0]),int(list_track[0][1]))
         np_track = np.array(list_track)
         np_track = np_track.reshape((np_track.shape[0],1,2))
