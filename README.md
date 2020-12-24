@@ -23,3 +23,7 @@ return：S.output
 链接：https://pan.baidu.com/s/189Ei1xxgxyjdft_f7gQ40g   
 提取码：ocfv   
 放在yolact_src\weights\下即可  
+### 2020-12-24
+增加iou阈值判断画出的动作  
+# Yolact Stromtion Online  
+实时版本  
