@@ -17,7 +17,7 @@ path_video：视频路径
 extract：抽帧参数  
 show_foot_track_line:是否画出脚的轨迹  
 return：S.output  
-格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）}}  
+格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）,'image':array,'imagepath':imgae_path}}  
 在视频目录生成video 和 stromotionImage  
 模型文件下载：  
 链接：https://pan.baidu.com/s/189Ei1xxgxyjdft_f7gQ40g   
