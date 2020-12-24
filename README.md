@@ -12,7 +12,7 @@
 S = StromotionCrossvideo(workspace,path_2dpose,list_point,path_video,extract=4,show_foot_track_line=True)
 workspace：视频文件所在目录  
 path_2dpose：op25b的npz文件路径  
-list_point：起跳落地点  
+list_point：起跳落地点,=[]不加入点    
 path_video：视频路径  
 extract：抽帧参数  
 show_foot_track_line:是否画出脚的轨迹  
