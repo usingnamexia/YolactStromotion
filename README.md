@@ -16,6 +16,7 @@ list_point：起跳落地点,=[]不加入点
 path_video：视频路径  
 extract：抽帧参数  
 show_foot_track_line:是否画出脚的轨迹  
+iou:bbox iou 判断显示的帧率  
 return：S.output  
 格式：{'kp2d':{帧号：2dpose},'track':{帧号：（x,y）,'image':array,'imagepath':imgae_path}}  
 在视频目录生成video 和 stromotionImage  
