@@ -9,7 +9,7 @@
 图片演示:  
 ![image](https://github.com/usingnamexia/YolactStromotion/blob/main/demo/StromtionCrossVideo_mini.png)  
 ## 使用介绍：  
-S = StromotionCrossvideo(workspace,path_2dpose,list_point,path_video,extract=4,show_foot_track_line=True)
+S = StromotionCrossvideo(workspace,path_2dpose,list_point,path_video,extract=4,show_foot_track_line=True,iou=0.2)
 workspace：视频文件所在目录  
 path_2dpose：op25b的npz文件路径  
 list_point：起跳落地点,=[]不加入点    
@@ -25,5 +25,6 @@ return：S.output
 放在yolact_src\weights\下即可  
 ### 2020-12-24
 增加iou阈值判断画出的动作  
+只使用IOU不抽帧 extract=1  
 # Yolact Stromtion Online  
 实时版本  
