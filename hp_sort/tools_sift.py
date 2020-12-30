@@ -12,16 +12,18 @@ import math
 
 class Stitcher:
     def __init__(self):
-        self.isv3 = imutils.is_cv3()
+        #self.isv3 = imutils.is_cv3()
+        self.isv3 = True
         self.dict_H={}
     def stitch(self, i,images, ratio=0.7, reprojThresh=4.0,
-        showMatches=False):
+        showMatches=False,alg='sift'):
+        self.alg = alg
         (imageB, imageA) = images
         (kpsA, featuresA) = self.detectAndDescribe(imageA)
         (kpsB, featuresB) = self.detectAndDescribe(imageB)
         # match features between the two images
         M = self.matchKeypoints(kpsA, kpsB,
-            featuresA, featuresB, ratio, reprojThresh)
+            featuresA, featuresB, ratio, reprojThresh,alg)
         # if the match is None, then there aren't enough matched
         # keypoints to create a panorama
         if M is None:
@@ -52,11 +54,12 @@ class Stitcher:
         # check to see if we are using OpenCV 3.X
         if self.isv3:
             # detect and extract features from the image
-            descriptor = cv2.xfeatures2d.SIFT_create()
-            (kps, features) = descriptor.detectAndCompute(image, None)
-            #orb = cv2.ORB_create()
-            #kp0,features = orb.detectAndCompute(gray,None)
-
+            if self.alg=='sift':
+                descriptor = cv2.xfeatures2d.SIFT_create()
+                (kps, features) = descriptor.detectAndCompute(gray, None)
+            elif self.alg=='orb':
+                orb = cv2.ORB_create(nfeatures=10240)
+                (kps, features) = orb.detectAndCompute(gray, None)
         # otherwise, we are using OpenCV 2.4.X
         else:
             # detect keypoints in the image
@@ -76,19 +79,26 @@ class Stitcher:
     #matchKeypoints方法需要四个参数，第一张图片的关键点和特征向量，第二张图片的关键点特征向量。
     #David Lowe’s ratio测试变量和RANSAC重投影门限也应该被提供。
     def matchKeypoints(self, kpsA, kpsB, featuresA, featuresB,
-        ratio, reprojThresh):
+        ratio, reprojThresh,alg='sift'):
         # compute the raw matches and initialize the list of actual
         # matches
-        matcher = cv2.DescriptorMatcher_create("BruteForce")
-        rawMatches = matcher.knnMatch(featuresA, featuresB, 2)
+        if alg=='sift':
+            matcher = cv2.DescriptorMatcher_create("BruteForce")
+            rawMatches = matcher.knnMatch(featuresA, featuresB, 2)
+        elif alg=='orb':
+            matcher = cv2.DescriptorMatcher_create("BruteForce")
+            rawMatches = matcher.knnMatch(featuresA, featuresB, 2)
+        #print(rawMatches)
         matches = []
-
         # loop over the raw matches
-        for m in rawMatches:
-            # ensure the distance is within a certain ratio of each
-            # other (i.e. Lowe's ratio test)
-            if len(m) == 2 and m[0].distance < m[1].distance * ratio:
-                matches.append((m[0].trainIdx, m[0].queryIdx))
+        if alg=='sift':
+            for m in rawMatches:
+                if len(m) == 2 and m[0].distance < m[1].distance * ratio:
+                    matches.append((m[0].trainIdx, m[0].queryIdx))
+        elif alg=='orb':
+            for m in rawMatches:
+                if len(m) == 2 and m[0].distance < m[1].distance * ratio:
+                    matches.append((m[0].trainIdx, m[0].queryIdx))
 
         # computing a homography requires at least 4 matches
         if len(matches) > 4:
@@ -123,10 +133,11 @@ class Stitcher:
                 # draw the match
                 ptA = (int(kpsA[queryIdx][0]), int(kpsA[queryIdx][1]))
                 ptB = (int(kpsB[trainIdx][0]) + wA, int(kpsB[trainIdx][1]))
-                cv2.line(vis, ptA, ptB, (0, 255, 0), 1)
+                cv2.line(vis, ptA, ptB, (0, 255, 0), 2)
 
         # return the visualization
         return vis
+    
 class StitcherSrc:
     def __init__(self):
         # determine if we are using OpenCV v3.X
